@@ -52,12 +52,16 @@ public:
     }
 
     BigDecimal operator + (BigDecimal n) const;
+    
+    BigDecimal operator - (BigDecimal n) const;
 
     bool operator < (BigDecimal n) const;
 
     bool operator > (BigDecimal n) const;
 
     bool operator == (BigDecimal n) const;
+    
+    BigDecimal operator = (BigDecimal n) const;
     
     friend ostream& operator<<(ostream& os, const BigDecimal& n);
 };
