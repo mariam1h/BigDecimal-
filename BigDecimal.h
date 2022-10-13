@@ -51,8 +51,6 @@ public:
         num=to_string(n);
     }
 
-    friend ostream& operator<<(ostream& os, const BigDecimal& n);
-
     BigDecimal operator + (BigDecimal n) const;
 
     bool operator < (BigDecimal n) const;
@@ -60,6 +58,8 @@ public:
     bool operator > (BigDecimal n) const;
 
     bool operator == (BigDecimal n) const;
+    
+    friend ostream& operator<<(ostream& os, const BigDecimal& n);
 };
 
 
