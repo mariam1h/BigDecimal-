@@ -62,6 +62,10 @@ public:
     bool operator == (BigDecimal n) const;
     
     BigDecimal operator = (BigDecimal n) const;
+
+    int Sign(BigDecimal n) const;
+    
+    int Size(BigDecimal n) const;
     
     friend ostream& operator<<(ostream& os, const BigDecimal& n);
 };
