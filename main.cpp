@@ -6,12 +6,9 @@ using namespace std;
 
 int main()
 {
-    BigDecimal num1("-99");
-    BigDecimal num2("87");
-    BigDecimal num3("0");
-    if(num2==num1)
-    {
-        cout<<"YES";
-    }
+    BigDecimal num1("+888");
+    BigDecimal num2("-88");
+    if(num1<num2) cout<<1;
+    cout<<num1+num2;
     return 0;
 }
