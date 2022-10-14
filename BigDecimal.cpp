@@ -142,6 +142,10 @@ bool BigDecimal::operator == (BigDecimal n) const
         return false;
     }
 }
+void BigDecimal:: operator=(BigDecimal n)
+{
+           num=n.num;
+}
 int BigDecimal::Sign(BigDecimal n) const
 {
     if(n.num[0]=='-')
