@@ -65,7 +65,7 @@ public:
 
     bool operator == (BigDecimal n) const;
 
-    BigDecimal operator = (BigDecimal n) const;
+    BigDecimal operator = (BigDecimal n) ;
 
     int Sign(BigDecimal n) const;
 
