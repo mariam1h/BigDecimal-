@@ -1,0 +1,140 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*******
+Task 1:
+*******
+
+// In main:
+// string sentence;
+// getline(cin,sentence);
+// sentence=converter(sentence);
+// cout<<sentence<<endl;
+
+string converter(string &sentence)
+{
+    string word="";
+    string ans="";
+
+    for(int i=0; i<sentence.length(); i++)
+    {
+        if(sentence[i]!=' ' && i!=sentence.length()-1)
+        {
+            word+=sentence[i];
+        }
+        else
+        {
+            if(i==sentence.length()-1)
+            {
+                word+=sentence[i];
+            }
+
+            string spare="";
+            bool check=true;
+
+            for(int k=0; k<word.length(); k++)
+            {
+                spare+=tolower(word[k]);
+            }
+            if(spare[0]=='h' && spare[1]=='e')
+            {
+                for(int k=2; k<word.length(); k++)
+                {
+                    if(isalnum(word[k]))
+                    {
+                        check=false;
+                        break;
+                    }
+                }
+                if(check)
+                {
+                    spare=word[0];
+                    spare+="e or she";
+                    for(int k=2; k<word.length(); k++)
+                    {
+                        spare+=word[k];
+                    }
+                    ans+=spare+" ";
+                }
+                else
+                {
+                    ans+=word+" ";
+                }
+            }
+            else if(spare[0]=='h' && spare[1]=='i' && spare[2]=='m')
+            {
+                for(int k=3; k<word.length(); k++)
+                {
+                    if(isalnum(word[k]))
+                    {
+                        check=false;
+                        break;
+                    }
+                }
+                if(check)
+                {
+                    spare=word[0];
+                    spare+="im or her";
+                    for(int k=3; k<word.length(); k++)
+                    {
+                        spare+=word[k];
+                    }
+                    ans+=spare+" ";
+                }
+                else
+                {
+                    ans+=word+" ";
+                }
+            }
+            else
+            {
+                ans+=word+" ";
+            }
+            word="";
+        }
+    }
+    return ans;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*******
+Task 6:
+*******
+
+// In main:
+// int n,i;
+// cin>>n>>i;
+// pattern(n,i);
+
+void pattern(int n, int i)
+{
+    // Base case for the recursion
+    if(n==0)
+    {
+        return;
+    }
+    else
+    {
+        // Recurses till it reaches 0 then returns to 1 and so on till n
+        pattern(n/2, i);
+
+        // Prints the spaces before asterisks
+        // i*2
+        for(int k=0; k<i*2; k++)
+        {
+            cout<<' ';
+        }
+
+        // Prints the asterisks after printing the spaces
+        for(int k=0; k<n; k++)
+        {
+            cout<<"* ";
+        }
+        cout<<endl;
+
+        // This function will recurse till it reaches 1 and increases consecutively and we will call the upper function
+        // again in every recurse till n reaches 0
+        // We will recurse on every power of 2 till we reaches n
+        pattern(n/2, i+(n/2));
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
