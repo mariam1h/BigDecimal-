@@ -6,7 +6,7 @@ using namespace std;
 class BigDecimal
 {
 private:
-    string num="0";
+    string num;
 public:
     // If the input is string
     BigDecimal(string n);

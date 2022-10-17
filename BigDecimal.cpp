@@ -115,7 +115,23 @@ BigDecimal::BigDecimal(string n)
 
 BigDecimal::BigDecimal(int n)
 {
-    num=to_string(n);
+    string str = to_string(n);
+    if(isdigit(str[0]) && str!="0")
+    {
+        str.insert(0,"+");
+    }
+    for(int i=1; i<str.length(); i++)
+    {
+        if(str[i]=='0')
+        {
+            str.erase(i,i);
+        }
+        else
+        {
+            break;
+        }
+    }
+    num =  str;
 }
 
 BigDecimal BigDecimal :: operator + (BigDecimal n) const
