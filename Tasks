@@ -138,3 +138,215 @@ void pattern(int n, int i)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*******
+Task 9:
+*******
+
+// In main:
+// ifstream first;
+// ifstream second;
+// loadfile1(file1,first);
+// loadfile2(file2,second);
+// compare();
+
+// Put the files in the debugging file
+// Vectors are local you can put them in the main and pass them as parameters
+
+vector <string> file1;
+vector <string> file2;
+
+void loadfile1(vector<string>&text,ifstream &file)
+{
+    char line[100];
+    string filename;
+    cout<<"Please enter filename without (.txt): ";
+    cin>>filename;
+    filename+=".txt";
+    file.open(filename);
+
+    if(file)
+    {
+        cout<<endl;
+        cout << "File was opened successfully !!"<<endl;
+        cout<<endl;
+        while(!file.eof())
+        {
+            file.getline(line, 100, '\n');
+            text.push_back(string(line));
+        }
+    }
+
+    else
+    {
+        cout<<endl;
+        cout << "This file does not exist!"<<endl;
+        cout<<endl;
+    }
+}
+
+void loadfile2(vector<string>&text, ifstream &file)
+{
+    char line[100];
+    string filename;
+    cout<<"Please enter filename without (.txt): ";
+    cin>>filename;
+    filename+=".txt";
+    file.open(filename);
+
+    if(file)
+    {
+        cout<<endl;
+        cout << "File was opened successfully !!"<<endl;
+        cout<<endl;
+        while(!file.eof())
+        {
+            file.getline(line, 100, '\n');
+            text.push_back(string(line));
+        }
+    }
+
+    else
+    {
+        cout<<endl;
+        cout << "This file does not exist!"<<endl;
+        cout<<endl;
+    }
+}
+
+void compare()
+{
+    string choice;
+    while(true)
+    {
+        cout<<"Choose:"<<endl;
+        cout<<"1- Char by Char"<<endl;
+        cout<<"2- Word by Word"<<endl;
+        cout<<"Your choice: ";
+        cin>>choice;
+        cout<<endl;
+        if(choice=="1")
+        {
+            bool check=true;
+            int index;
+
+            for(int i=0; i<max(file1.size(),file2.size()); i++)
+            {
+                for(int k=0; k<max(file1[i].size(),file2[i].size()); k++)
+                {
+                    if(file1[i][k]!=file2[i][k])
+                    {
+                        index=i;
+                        check=false;
+                        break;
+                    }
+                }
+                if(!check)
+                {
+                    break;
+                }
+            }
+            if(check && file1!=file2)
+            {
+                cout<<"They are not identical as the other file has more characters!"<<endl;
+            }
+            else if(check)
+            {
+                cout<<"They are identical"<<endl;
+            }
+            else
+            {
+                cout<<"They are not identical."<<endl;
+                cout<<"Line number is: "<<index+1<<endl;
+                cout<<"The different lines are: "<<endl;
+                cout<<"1- "<<file1[index]<<endl;
+                cout<<"2- "<<file2[index]<<endl;
+            }
+            break;
+        }
+        else if(choice=="2")
+        {
+            string word1,word2;
+            bool check=true;
+            vector <string> words1;
+            vector <string> words2;
+            map <string,int> mp1;
+            map <string,int> mp2;
+            for(int i=0; i<file1.size(); i++)
+            {
+                word1="";
+                for(int k=0; k<file1[i].size(); k++)
+                {
+                    if(file1[i][k]!=' ')
+                    {
+                        word1+=file1[i][k];
+                    }
+                    else if(word1!="")
+                    {
+                        words1.push_back(word1);
+                        mp1[word1]=i;
+                        word1="";
+                    }
+                }
+                mp1[word1]=i;
+                words1.push_back(word1);
+            }
+            for(int i=0; i<file2.size(); i++)
+            {
+                word2="";
+                for(int k=0; k<file2[i].size(); k++)
+                {
+                    if(file2[i][k]!=' ')
+                    {
+                        word2+=file2[i][k];
+                    }
+                    else if(word2!="")
+                    {
+                        words2.push_back(word2);
+                        mp2[word2]=i;
+                        word2="";
+                    }
+                }
+                mp2[word2]=i;
+                words2.push_back(word2);
+            }
+            for(int i=0; i<min(words1.size(),words2.size()); i++)
+            {
+                if(words1[i]!=words2[i])
+                {
+                    word1=words1[i];
+                    word2=words2[i];
+                    check=false;
+                    break;
+                }
+            }
+
+            if(words1!=words2 && check)
+            {
+                cout<<"They are not identical because there is more words in the other file!"<<endl;
+                cout<<"The different lines are: "<<endl;
+                cout<<"1- "<<file1[mp1[word1]]<<endl;
+                cout<<"2- "<<file2[mp2[word2]]<<endl;
+            }
+            else if(!check)
+            {
+                cout<<"They are not identical."<<endl;
+                cout<<"They are different in words: "<<endl;
+                cout<<word1<<" "<<word2<<endl;
+                cout<<"The different lines are: "<<endl;
+                cout<<"1- "<<file1[mp1[word1]]<<endl;
+                cout<<"2- "<<file2[mp2[word2]]<<endl;
+            }
+            else
+            {
+                cout<<"They are identical"<<endl;
+            }
+            break;
+        }
+        else
+        {
+            cout<<"Invalid input."<<endl;
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
