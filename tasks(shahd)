@@ -1,0 +1,233 @@
+problem(0)
+--------------------------------------------------------------------------
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+string modifiy(string s){
+    string c="";
+    int index=0;
+    for(int j=0;j<s.size();j++) {
+        if (isalpha(s[index++])) {
+            for (int i = index - 1; i < s.size(); ++i) {
+                if (s[i] == ' ' && s[i - 1] == ' ') {
+                    continue;
+                } else c += s[i];
+            }
+            break;
+        }
+    }
+        transform(c.begin(),c.end(),c.begin(),::tolower);
+    c[0]=toupper(c[0]);
+
+    return c;
+}
+
+int main() {
+   string s;
+    getline(cin,s);
+    cout<<modifiy(s);
+
+}
+
+------------------------------------------------------------------------------------------------------
+problem(3)
+------------------------------------------------------------------------
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+vector<pair<int , string>>v(10);
+void Add(string s, int n){
+    pair<int,string>x;
+    int y=0;
+    x.first=n;
+    x.second=s;
+
+        v.push_back(x);
+
+
+    sort(v.begin(),v.end());
+    reverse(v.begin(),v.end());
+
+}
+void Print () {
+    for (int i = 0; i < 10; i++) {
+        if (v[i].first == 0)break;
+        cout << i + 1 << "-" << v[i].second << ' ' << v[i].first << '\n';
+    }
+}
+    void HighestScore(string s){
+    bool flag=0;
+        for (int i = 0; i <10 ; ++i) {
+            if(v[i].second==s){
+                cout<<"Your player's Highest score is :\n";
+                cout<<v[i].first<<endl;
+                flag=1;
+                break;
+            }
+        }
+        if(flag==0)cout<<"Player is not in the Top 10 list\n";
+    }
+
+int main() {
+string s;
+int n,answer;
+vector<pair<int , string>>v;
+while(answer!=4)
+{
+cout<<"which option would you like to choose : \nchoose 1 to add a new element\nchoose 2 to display Top 10 list\nchoose 3 to display your player's highest score\nchoose 4 to exit \n";
+cin>>answer;
+if(answer==1)
+{
+    cout<<"please enter your player's name :\n";
+    cin>>s;
+    cout<<"please enter your player's score : \n";
+    cin>>n;
+    Add(s,n);
+}
+if(answer==2)
+{
+    Print();
+}
+if(answer==3)
+{
+    cout<<"Please enter your Player's name:\n";
+    string str;
+    cin>>str;
+    HighestScore(str);
+}
+if(answer==4)
+{
+    break;
+}
+}
+
+}
+-------------------------------------------------------------------------------------------------------------------------
+problem(8)
+-------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+template<typename tmp>
+class VEC
+        {
+    tmp* mem_data=nullptr;
+    size_t mem_size=0;
+    size_t mem_capacity=0;
+
+    void Re_Alloc(size_t new_capacity)
+    {
+        tmp *newblck = new tmp[new_capacity];
+        if (new_capacity < mem_size)
+            mem_size = new_capacity;
+
+        for (size_t i = 0; i < mem_size; ++i)
+        {
+            newblck[i] = mem_data[i];
+        }
+       delete[] mem_data;
+         mem_data = newblck;
+        mem_capacity = new_capacity;
+    }
+public:
+    VEC()
+    {
+        Re_Alloc(2);
+
+    }
+    VEC(VEC& vctor)
+    {
+        VEC vctr[vctor.SIZE()];
+        for (int i = 0; i <vctor.SIZE() ; ++i)
+        {
+            vctr[i]=vctor[i];
+        }
+
+    }
+    ~VEC()
+    {
+        ::operator delete(mem_data, mem_capacity * sizeof(tmp));
+    }
+    void Push_Back( const tmp& value)
+    {
+        if(mem_size>=mem_capacity)
+            Re_Alloc(mem_capacity+mem_capacity/2);
+        mem_data[mem_size]=value;
+        mem_size++;
+    }
+    void Pop_Back()
+    {
+        mem_size--;
+        mem_data[mem_size].~tmp();
+
+    }
+    void Clear()
+    {
+        for (size_t i = 0; i <mem_size ; ++i)
+        {
+            mem_data[i].~tmp();
+        }
+        mem_size = 0;
+    }
+
+   const tmp& operator[](size_t indx)const
+   {
+        if(indx>=mem_size)cout<<"invalid index\n ";
+        return mem_data[indx];
+    }
+    tmp& operator[](size_t indx)
+    {
+        if(indx>=mem_size)cout<<"invalid index\n ";
+        else {
+            return mem_data[indx];
+        }
+    }
+    size_t SIZE ()const
+    {
+        return mem_size;
+    }
+    VEC& operator=(const VEC& other)
+            {
+        delete[] mem_data;
+        mem_size=other.SIZE();
+        mem_data=new int [other.SIZE()];
+        for (int i = 0; i <other.SIZE() ; ++i)
+        {
+            *(mem_data+i)=*(other.mem_data+i);
+        }
+    }
+};
+
+void PrintVec(const VEC<int>& vector)
+{
+
+    for(size_t i=0;i<vector.SIZE();i++)
+    {
+        cout<<vector[i]<<' ';
+    }
+    cout<<endl;
+}
+
+int main() {
+
+VEC<int>vec;
+VEC<int>vect;
+    vec.Push_Back(5);
+    vec.Push_Back(4);
+    vec.Push_Back(3);
+    vec.Push_Back(2);
+    PrintVec(vec);
+    cout<<vec.SIZE()<<endl;
+    cout<<vec[2];
+    vec.Pop_Back();
+    PrintVec(vec);
+    vec.Clear();
+    PrintVec(vec);
+    vect=vec;
+    PrintVec(vect);
+}
+-----------------------------------------------------------------------------------
